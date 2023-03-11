@@ -1,0 +1,16 @@
+create table QUESTION
+(
+  ID            INTEGER AUTO_INCREMENT primary key,
+  TITLE         VARCHAR(50),
+  DESCRIPTION   CLOB,
+  GMT_CREATE    BIGINT,
+  GMT_MODIFIED  BIGINT,
+  CREATOR       INTEGER,
+  COMMENT_COUNT INTEGER,
+  VIEW_COUNT    INTEGER,
+  LIKE_COUNT    INTEGER,
+  TAG           VARCHAR(256)
+);
+
+create unique index QUESTION_ID_UINDEX
+  on QUESTION (ID);
