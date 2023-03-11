@@ -14,6 +14,8 @@
 
 [runoob](www.runoob.com)
 
+[flywaydb](flywaydb.org) mvn flyway:migration
+
 # 脚本
 ```sql
 create table USER

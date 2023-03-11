@@ -1,0 +1,9 @@
+create table USER
+(
+  ID           INTEGER AUTO_INCREMENT primary key,
+  NAME         VARCHAR(100),
+  ACCOUNT_ID   VARCHAR(60),
+  TOKEN        VARCHAR(60),
+  GMT_CREATE   BIGINT,
+  GMT_MODIFIED BIGINT
+);
