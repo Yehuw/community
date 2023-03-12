@@ -1,5 +1,6 @@
 package life.yehuw.wochat.service;
 
+import life.yehuw.wochat.dto.PaginationDTO;
 import life.yehuw.wochat.dto.QuestionDTO;
 import life.yehuw.wochat.mapper.QuestionMapper;
 import life.yehuw.wochat.mapper.UserMapper;
@@ -21,16 +22,31 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
-    public List<QuestionDTO> list() {
-        List<Question> questions = questionMapper.list();
-        List<QuestionDTO> questionDTOS = new ArrayList<>();
+    public PaginationDTO list(Integer page, Integer size) {
+
+        PaginationDTO paginationDTO = new PaginationDTO();
+        Integer totalCount = questionMapper.count();
+        paginationDTO.setPagination(totalCount, page, size);
+
+        if (page < 1) {
+            page = 1;
+        }
+        if (page.intValue() > paginationDTO.getTotalPage().intValue()) {
+            page = paginationDTO.getTotalPage();
+        }
+
+        Integer offset = size * (page - 1);
+        List<Question> questions = questionMapper.list(offset, size);
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
+
         for (Question question : questions) {
             User user = userMapper.findById(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
-            BeanUtils.copyProperties(question,questionDTO);
+            BeanUtils.copyProperties(question, questionDTO);
             questionDTO.setUser(user);
-            questionDTOS.add(questionDTO);
+            questionDTOList.add(questionDTO);
         }
-        return questionDTOS;
+        paginationDTO.setQuestions(questionDTOList);
+        return paginationDTO;
     }
 }
