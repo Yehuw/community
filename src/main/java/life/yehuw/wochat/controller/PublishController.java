@@ -69,10 +69,13 @@ public class PublishController {
         question.setDescription(description);
         question.setTag(tag);
         question.setCreator(user.getId());
+        if (question.getTitle()==""||question.getDescription()==""||question.getTag()==""){
+            return "redirect:/";
+        }
         question.setGmtCreate(System.currentTimeMillis());
         question.setGmtModified(question.getGmtCreate());
         questionMapper.create(question);
-        return "publish";
+        return "redirect:/";
     }
 
 }

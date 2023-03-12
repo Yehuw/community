@@ -14,7 +14,10 @@
 
 [runoob](www.runoob.com)
 
-[flywaydb](flywaydb.org) mvn flyway:migration
+[flywaydb](flywaydb.org) 
+```java
+mvn flyway:migration
+ ```
 
 # 脚本
 ```sql
